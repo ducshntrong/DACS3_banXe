@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardElevation="10.5dp">
         <RelativeLayout
             android:layout_margin="10dp"
             android:padding="5dp"
@@ -27,6 +28,7 @@
                 <TextView
                     android:id="@+id/item_tenspchitiet"
                     android:text="Laptop"
+                    android:textStyle="bold"
                     android:textSize="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -34,12 +36,15 @@
                     android:id="@+id/item_soluongchitiet"
                     android:text="Số lượng: 2"
                     android:textSize="15sp"
+                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/item_giachitiet"
                     android:text="Giá: 200d"
                     android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorpri"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

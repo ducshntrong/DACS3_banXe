@@ -38,7 +38,7 @@ public class xeDapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_DATA) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dienthoai, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sp2, parent, false);
 
             return new MyViewHolder(view);
         } else {
@@ -54,8 +54,8 @@ public class xeDapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             SanPhamMoi sanPham = array.get(position);
             myViewHolder.tensp.setText(sanPham.getTensp().trim());
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-            myViewHolder.giasp.setText("Giá: "+((sanPham.getGiasp()))+"đ");
-            myViewHolder.mota.setText(sanPham.getMota());
+            myViewHolder.giasp.setText("Giá: "+decimalFormat.format(Double.parseDouble(sanPham.getGiasp()))+"đ");
+//            myViewHolder.mota.setText(sanPham.getMota());
             Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
 
             myViewHolder.setItemClickListener(new ItemClickListener() {
@@ -105,7 +105,7 @@ public class xeDapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
             tensp = itemView.findViewById(R.id.itemdt_ten);
             giasp = itemView.findViewById(R.id.itemdt_gia);
-            mota = itemView.findViewById(R.id.itemdt_mota);
+//            mota = itemView.findViewById(R.id.itemdt_mota);
             hinhanh = itemView.findViewById(R.id.itemdt_image);
             itemView.setOnClickListener(this);
         }

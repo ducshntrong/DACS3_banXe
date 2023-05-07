@@ -119,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
                         xedap.putExtra("loai", 3);
                         startActivity(xedap);
                         break;
+                    case 4:
+                        Intent lienhe = new Intent(getApplicationContext(), LienHeActivity.class);
+                        lienhe.putExtra("loai", 4);
+                        startActivity(lienhe);
+                        break;
                     case 5:
                         Intent donhang = new Intent(getApplicationContext(), XemDonActivity.class);
                         startActivity(donhang);
@@ -160,7 +165,8 @@ public class MainActivity extends AppCompatActivity {
         List<String> mangquangcao = new ArrayList<>();
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/hedenvuive.png");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/thang5toi.png");
-        mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/chaoDN.png");
+        mangquangcao.add("https://xedap.vn/wp-content/uploads/2023/05/BANNER-WEB-DAP-KHOE-SONG-CHAT-09-scaled.jpg");
+        mangquangcao.add("https://xedap.vn/wp-content/uploads/2022/11/banner-xe-dia-hinh-fix-2021-scaled-1.jpg");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Banner-xe-dap-dien.png");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Banner-xe-may-dien-01-1.jpg");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Sale.png");
@@ -204,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if (loaiSpModel.isSuccess()) {
                                 mangloaisp = loaiSpModel.getResult();
-                                mangloaisp.add(new LoaiSp("Đăng xuất", "https://static.vecteezy.com/system/resources/previews/000/575/503/original/vector-logout-sign-icon.jpg"));
+                                mangloaisp.add(new LoaiSp("Đăng xuất",
+                                        "https://static.vecteezy.com/system/resources/previews/000/575/503/original/vector-logout-sign-icon.jpg"));
                                 //khoi tao adapter
 
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), mangloaisp);

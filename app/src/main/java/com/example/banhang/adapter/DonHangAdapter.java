@@ -1,6 +1,7 @@
 package com.example.banhang.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,12 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DonHang donHang = listdonhang.get(position);
-        holder.txtdonhang.setText("Đơn hàng: " + donHang.getId()+"");
+        if (donHang.getTrangthai() == 0){
+            holder.txtdonhang.setText("Đơn hàng: Đang giao");
+        }else if (donHang.getTrangthai() == 1){
+            holder.txtdonhang.setText("Đơn hàng: Đã giao");
+            holder.txtdonhang.setTextColor(Color.parseColor("#036D03"));
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 holder.reChiTiet.getContext(),
                 LinearLayoutManager.VERTICAL,
@@ -47,9 +53,6 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         holder.reChiTiet.setLayoutManager(layoutManager);
         holder.reChiTiet.setAdapter(chiTietAdapter);
         holder.reChiTiet.setRecycledViewPool(viewPool);
-
-
-
     }
 
     @Override

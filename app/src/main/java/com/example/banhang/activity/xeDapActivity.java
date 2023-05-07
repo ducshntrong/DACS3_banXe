@@ -3,6 +3,7 @@ package com.example.banhang.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,9 +46,9 @@ public class xeDapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xe_may_dien);
+        setContentView(R.layout.activity_xedap);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
-        loai = getIntent().getIntExtra("loai", 1);
+        loai = getIntent().getIntExtra("loai", 3);
 
         AnhXa();
         ActionToolbar();
@@ -143,7 +144,7 @@ public class xeDapActivity extends AppCompatActivity {
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
         recyclerView = findViewById(R.id.recycleview_dt);
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         sanPhamMoiList = new ArrayList<>();

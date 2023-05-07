@@ -41,8 +41,6 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.gia.setText("Giá: "+decimalFormat.format(Double.parseDouble(item.getGia())) + "đ");
         Glide.with(context).load(item.getHinhanh()).into(holder.imgchitiet);
-
-
     }
 
     @Override

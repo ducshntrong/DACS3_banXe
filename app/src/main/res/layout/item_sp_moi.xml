@@ -2,11 +2,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="8dp"
-    app:cardCornerRadius="7dp"
+    app:cardCornerRadius="10dp"
     android:layout_marginTop="10dp"
-    android:layout_marginLeft="15dp"
-    android:layout_width="170dp"
-    android:layout_height="wrap_content">
+    android:layout_marginLeft="8dp"
+    android:layout_width="185dp"
+    android:layout_height="wrap_content"
+    app:cardElevation="10.5dp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                 android:id="@+id/itemsp_gia"
                 android:text="gia: 250d"
                 android:textSize="15sp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/colorpri"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_width="match_parent"

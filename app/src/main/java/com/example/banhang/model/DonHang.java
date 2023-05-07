@@ -8,6 +8,7 @@ public class DonHang {
     String diachi;
     String sodienthoai;
     String tongtien;
+    int trangthai;
     List<Item> item;
 
     public int getId() {
@@ -48,6 +49,14 @@ public class DonHang {
 
     public void setTongtien(String tongtien) {
         this.tongtien = tongtien;
+    }
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
     }
 
     public List<Item> getItem() {
