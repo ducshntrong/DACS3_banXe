@@ -17,11 +17,20 @@
             android:scaleType="centerCrop"
             android:src="@drawable/iconnew_h512"
             android:layout_width="140dp"
-            android:layout_height="143dp"/>
+            android:layout_height="150dp"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_cross"
+                android:layout_marginStart="235dp"
+                android:layout_marginTop="4dp"/>
             <TextView
                 android:id="@+id/item_giohang_tensp"
                 android:text="Tên sản phẩm"

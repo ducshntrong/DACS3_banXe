@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(trangchu);
                         break;
                     case 1:
-                        Intent dienthoai = new Intent(getApplicationContext(), xeMayDienActivity.class);
-                        dienthoai.putExtra("loai", 1);
-                        startActivity(dienthoai);
+                        Intent xemaydien = new Intent(getApplicationContext(), xeMayDienActivity.class);
+                        xemaydien.putExtra("loai", 1);
+                        startActivity(xemaydien);
                         break;
                     case 2:
-                        Intent laptop = new Intent(getApplicationContext(), xeDapDienActivity.class);
-                        laptop.putExtra("loai", 2);
-                        startActivity(laptop);
+                        Intent xedapdien = new Intent(getApplicationContext(), xeDapDienActivity.class);
+                        xedapdien.putExtra("loai", 2);
+                        startActivity(xedapdien);
                         break;
                     case 3:
                         Intent xedap = new Intent(getApplicationContext(), xeDapActivity.class);

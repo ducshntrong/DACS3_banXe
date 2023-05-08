@@ -153,6 +153,8 @@ public class DangNhapActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Email hoặc mật khẩu không chính xác", Toast.LENGTH_LONG).show();
                             }
                         },
                         throwable -> {
