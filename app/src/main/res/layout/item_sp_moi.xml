@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-        <ImageView
-            android:src="@drawable/iconnew_h512"
+        <pl.droidsonroids.gif.GifImageView
+            android:src="@drawable/newicon"
             android:layout_gravity="top|right"
             android:layout_width="30dp"
             android:layout_height="30dp"/>

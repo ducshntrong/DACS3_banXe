@@ -64,7 +64,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tongtien = getIntent().getLongExtra("tongtien", 0);
-        txttongtien.setText(decimalFormat.format(tongtien));
+        txttongtien.setText(decimalFormat.format(tongtien)+"đ");
         txtemail.setText(Utils.user_current.getEmail());
         txtsodt.setText(Utils.user_current.getMobile());
 
