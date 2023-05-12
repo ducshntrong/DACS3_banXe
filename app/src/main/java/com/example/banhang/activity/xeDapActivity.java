@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.banhang.R;
 import com.example.banhang.adapter.xeDapAdapter;
-import com.example.banhang.adapter.xeMayDienAdapter;
 import com.example.banhang.model.SanPhamMoi;
 import com.example.banhang.retrofit.ApiBanHang;
 import com.example.banhang.retrofit.RetrofitClient;

@@ -40,7 +40,7 @@
         android:id="@+id/layout1"
         android:weightSum="2"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/btnmuahang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

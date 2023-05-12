@@ -21,14 +21,14 @@ import com.example.banhang.model.SanPhamMoi;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class xeMayDienAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class loaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     List<SanPhamMoi> array;
     private static final int VIEW_TYPE_DATA = 0;
     private static final int VIEW_TYPE_LOADING = 1;
 
 
-    public xeMayDienAdapter(Context context, List<SanPhamMoi> array) {
+    public loaiAdapter(Context context, List<SanPhamMoi> array) {
         this.context = context;
         this.array = array;
     }
@@ -50,7 +50,7 @@ public class xeMayDienAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
-            MyViewHolder myViewHolder = (MyViewHolder) holder;
+            MyViewHolder myViewHolder = (MyViewHolder) holder;//ép kiểu
             SanPhamMoi sanPham = array.get(position);
             myViewHolder.tensp.setText(sanPham.getTensp().trim());
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
@@ -78,7 +78,6 @@ public class xeMayDienAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-
         return array.get(position) == null ? VIEW_TYPE_LOADING:VIEW_TYPE_DATA;
     }
 

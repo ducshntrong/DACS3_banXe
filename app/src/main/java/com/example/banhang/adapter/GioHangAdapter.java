@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.banhang.Interface.IImageClickListenner;
 import com.example.banhang.R;
+import com.example.banhang.activity.GioHangActivity;
 import com.example.banhang.model.EventBus.TinhTongEvent;
 import com.example.banhang.model.GioHang;
 import com.example.banhang.utils.Utils;
@@ -26,10 +27,11 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import io.paperdb.Paper;
+
 public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHolder> {
     Context context;
     List<GioHang> gioHangList;
-
     public GioHangAdapter(Context context, List<GioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
@@ -56,9 +58,15 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    Utils.mangmuahang.add(gioHang);
+                    //nếu tích vào thì set = true
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(true);
+                    if (!Utils.mangmuahang.contains(gioHang)){
+                        Utils.mangmuahang.add(gioHang);
+                    }
                     EventBus.getDefault().postSticky(new TinhTongEvent());
                 }else {
+                    //nếu bỏ tích
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(false);
                     for (int i = 0; i < Utils.mangmuahang.size(); i++) {
                         if (Utils.mangmuahang.get(i).getIdsp() == gioHang.getIdsp()) {
                             Utils.mangmuahang.remove(i);
@@ -68,6 +76,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                 }
             }
         });
+
+        holder.checkBox.setChecked(gioHang.isChecked());
 
         holder.setListenner(new IImageClickListenner() {
             @Override
@@ -98,7 +108,9 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                     builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Utils.mangmuahang.remove(gioHang);
                             Utils.manggiohang.remove(pos);
+                            Paper.book().write("giohang", Utils.manggiohang);
                             notifyDataSetChanged();
                             EventBus.getDefault().postSticky(new TinhTongEvent());
                         }

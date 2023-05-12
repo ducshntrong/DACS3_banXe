@@ -56,35 +56,12 @@
 
                     </FrameLayout>
                 </LinearLayout>
-
-
             </androidx.appcompat.widget.Toolbar>
             <ViewFlipper
                 android:id="@+id/viewflipper"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="#fff">
-<!--               <ImageView-->
-<!--                    android:src="@drawable/view_1"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"/>-->
-<!--                <ImageView-->
-<!--                    android:src="@drawable/view_2"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"/>-->
-<!--                <ImageView-->
-<!--                    android:src="@drawable/view_3"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"/>-->
-<!--                <ImageView-->
-<!--                    android:src="@drawable/view_4"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"/>-->
-
             </ViewFlipper>
 
             <LinearLayout

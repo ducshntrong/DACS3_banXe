@@ -29,7 +29,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_cross"
-                android:layout_marginStart="235dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="2dp"
                 android:layout_marginTop="4dp"/>
             <TextView
                 android:id="@+id/item_giohang_tensp"

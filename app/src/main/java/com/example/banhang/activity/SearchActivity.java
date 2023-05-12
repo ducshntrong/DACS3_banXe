@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.banhang.R;
-import com.example.banhang.adapter.xeMayDienAdapter;
+import com.example.banhang.adapter.loaiAdapter;
 import com.example.banhang.model.SanPhamMoi;
 import com.example.banhang.retrofit.ApiBanHang;
 import com.example.banhang.retrofit.RetrofitClient;
@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     EditText edtsearch;
-    xeMayDienAdapter adapterDt;
+    loaiAdapter adapterDt;
     List<SanPhamMoi> sanPhamMoiList;
     ApiBanHang apiBanHang;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
                     sanPhamMoiList.clear();
-                    adapterDt = new xeMayDienAdapter(getApplicationContext(), sanPhamMoiList);
+                    adapterDt = new loaiAdapter(getApplicationContext(), sanPhamMoiList);
                     recyclerView.setAdapter(adapterDt);
                 }else {
                     getDataSearch(charSequence.toString());
@@ -91,7 +91,7 @@ public class SearchActivity extends AppCompatActivity {
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()) {
                                 sanPhamMoiList = sanPhamMoiModel.getResult();
-                                adapterDt = new xeMayDienAdapter(getApplicationContext(), sanPhamMoiList);
+                                adapterDt = new loaiAdapter(getApplicationContext(), sanPhamMoiList);
                                 recyclerView.setAdapter(adapterDt);
                             }else {
                                 //Toast.makeText(getApplicationContext(), sanPhamMoiModel.getMessage(), Toast.LENGTH_LONG).show();

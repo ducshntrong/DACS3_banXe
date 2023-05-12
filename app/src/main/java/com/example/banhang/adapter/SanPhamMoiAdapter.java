@@ -24,7 +24,6 @@ public class SanPhamMoiAdapter extends RecyclerView.Adapter<SanPhamMoiAdapter.My
     Context context;
     List<SanPhamMoi> array;
 
-
     public SanPhamMoiAdapter(Context context, List<SanPhamMoi> array) {
         this.context = context;
         this.array = array;

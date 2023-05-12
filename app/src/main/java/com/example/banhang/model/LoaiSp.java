@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 public class LoaiSp {
     int id;
-    String tensanpham;
+    String tensanpham;//Lấy đúng tên đã đặt trong db
     String hinhanh;
 
     public LoaiSp(String tensanpham, String hinhanh) {

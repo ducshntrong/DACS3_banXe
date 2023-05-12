@@ -1,23 +1,19 @@
 package com.example.banhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-import com.example.banhang.R;
-
-
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.banhang.adapter.xeMayDienAdapter;
+import com.example.banhang.R;
+import com.example.banhang.adapter.loaiAdapter;
 import com.example.banhang.model.SanPhamMoi;
 import com.example.banhang.retrofit.ApiBanHang;
 import com.example.banhang.retrofit.RetrofitClient;
@@ -32,14 +28,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 
-public class xeDapDienActivity extends AppCompatActivity {
+public class loaiSanPhamActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     ApiBanHang apiBanHang;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     int page = 1;
     int loai;
-    xeMayDienAdapter adapterDt;
+    loaiAdapter adapterDt;
     List<SanPhamMoi> sanPhamMoiList;
     LinearLayoutManager linearLayoutManager;
     Handler handler = new Handler();
@@ -49,7 +45,7 @@ public class xeDapDienActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xedapdien);
+        setContentView(R.layout.activity_loai);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
         loai = getIntent().getIntExtra("loai", 1);
 
@@ -109,16 +105,19 @@ public class xeDapDienActivity extends AppCompatActivity {
                 .subscribe(
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()) {
-                                if (adapterDt == null) {
+                                if (adapterDt == null) { //khi nào adapterDt = null thì mới new
                                     sanPhamMoiList = sanPhamMoiModel.getResult();
-                                    adapterDt = new xeMayDienAdapter(getApplicationContext(), sanPhamMoiList);
+                                    adapterDt = new loaiAdapter(getApplicationContext(), sanPhamMoiList);
                                     recyclerView.setAdapter(adapterDt);
                                 }else {
                                     int vitri = sanPhamMoiList.size()-1;
                                     int soluongadd = sanPhamMoiModel.getResult().size();
                                     for (int i = 0; i < soluongadd; i++) {
+                                        //sau khi có dữ liệu thì ta duyệt qua dữ liệu mới lấy về
+                                        //add vào sanPhamMoiList
                                         sanPhamMoiList.add(sanPhamMoiModel.getResult().get(i));
                                     }
+                                    //thong báo cho adapter là add vào vị trí nào và số lượng là bn
                                     adapterDt.notifyItemRangeInserted(vitri, soluongadd);
                                 }
 
@@ -142,6 +141,12 @@ public class xeDapDienActivity extends AppCompatActivity {
                 finish();
             }
         });
+        ActionBar a = getSupportActionBar();
+        if(loai == 1){
+            a.setTitle("Xe máy điện");
+        } else if (loai == 2) {
+            a.setTitle("Xe đạp điện");
+        }
     }
 
     private void AnhXa() {

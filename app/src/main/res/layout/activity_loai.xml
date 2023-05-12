@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.xeMayDienActivity">
+    tools:context=".activity.loaiSanPhamActivity">
     
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
-        app:title="Xe máy điện"
+        app:title="Loại"
         android:background="@color/colorpri1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"

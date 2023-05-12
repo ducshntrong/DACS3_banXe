@@ -31,9 +31,17 @@
                 android:id="@+id/recycleview_chitiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
             </androidx.recyclerview.widget.RecyclerView>
+            <TextView
+                android:id="@+id/tongtien"
+                android:text="Tổng tiền: 123đ"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
         </LinearLayout>

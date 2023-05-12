@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);//kết nối tới url của db
         Paper.init(this);
         if (Paper.book().read("user") != null) {
             User user = Paper.book().read("user");
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(trangchu);
                         break;
                     case 1:
-                        Intent xemaydien = new Intent(getApplicationContext(), xeMayDienActivity.class);
+                        Intent xemaydien = new Intent(getApplicationContext(), loaiSanPhamActivity.class);
                         xemaydien.putExtra("loai", 1);
                         startActivity(xemaydien);
                         break;
                     case 2:
-                        Intent xedapdien = new Intent(getApplicationContext(), xeDapDienActivity.class);
+                        Intent xedapdien = new Intent(getApplicationContext(), loaiSanPhamActivity.class);
                         xedapdien.putExtra("loai", 2);
                         startActivity(xedapdien);
                         break;
@@ -160,8 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 ));
     }
 
-
-    private void ActionViewFlipper() {
+    private void ActionViewFlipper() {//chạy quảng cáo
         List<String> mangquangcao = new ArrayList<>();
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/hedenvuive.png");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/thang5toi.png");
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Banner-xe-dap-dien.png");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Banner-xe-may-dien-01-1.jpg");
         mangquangcao.add("https://ducshntrong.github.io/webcuoiki/assets/img/Sale.png");
-
+        //duyệt để lấy ra từng ptu của mảng
         for (int i = 0; i<mangquangcao.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(mangquangcao.get(i)).into(imageView);
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             viewFlipper.addView(imageView);
 
         }
-        viewFlipper.setFlipInterval(3000);
+        viewFlipper.setFlipInterval(7000);
         viewFlipper.setAutoStart(true);
         Animation slide_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slide_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
@@ -209,11 +208,11 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(
                         loaiSpModel -> {
                             if (loaiSpModel.isSuccess()) {
-                                mangloaisp = loaiSpModel.getResult();
+                                //thêm dữ liệu từ db
+                                mangloaisp = loaiSpModel.getResult();//đổ data vào mangloaisp
                                 mangloaisp.add(new LoaiSp("Đăng xuất",
                                         "https://static.vecteezy.com/system/resources/previews/000/575/503/original/vector-logout-sign-icon.jpg"));
                                 //khoi tao adapter
-
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), mangloaisp);
                                 listViewmanhinhchinh.setAdapter(loaiSpAdapter);
                             }
@@ -238,6 +237,9 @@ public class MainActivity extends AppCompatActivity {
         // khoi tao List
         mangloaisp = new ArrayList<>();
         mangSpMoi = new ArrayList<>();
+        if (Paper.book().read("giohang") != null){
+            Utils.manggiohang = Paper.book().read("giohang");
+        }
         if (Utils.manggiohang == null) {
             Utils.manggiohang = new ArrayList<>();
         }else {
@@ -278,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
         badge.setText(String.valueOf(totalItem));
     }
 
+    //ktra thiết bị có kết nối internet hay k
     private boolean isConnected (Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
