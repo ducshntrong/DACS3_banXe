@@ -54,16 +54,23 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
+        //triển khai TextWatcher cho chế độ xem EditText, được sử dụng để phát hiện các thay đổi
+        // trong văn bản do người dùng nhập và cập nhật giao diện người dùng cho phù hợp.
         edtsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
+            //Phương thức onTextChanged() được gọi bất cứ khi nào người dùng nhập,
+            // xóa hoặc thay thế văn bản trong chế độ xem EditText
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
+                    //Nếu độ dài của đối tượng CharSequence được chuyển đến onTextChanged() là 0
+                    // (tức là người dùng đã xóa tất cả văn bản trong chế độ xem EditText)
                     sanPhamMoiList.clear();
+                    //sanPhamMoiList sẽ bị xóa và một phiên bản mới của loaiAdapter được tạo với một
+                    // danh sách trống. Thao tác này sẽ xóa RecyclerView một cách hiệu quả.
                     adapterDt = new loaiAdapter(getApplicationContext(), sanPhamMoiList);
                     recyclerView.setAdapter(adapterDt);
                 }else {

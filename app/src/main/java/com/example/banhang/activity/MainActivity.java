@@ -73,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);//kết nối tới url của db
+        //Phương thức Paper.init(this) được sử dụng để khởi tạo thư viện Paper, một thư viện lưu trữ dữ liệu đơn giản.
         Paper.init(this);
+        //kiểm tra xem có thông tin người dùng được lưu trữ trong Paper hay không.
         if (Paper.book().read("user") != null) {
+            //Nếu có, phương thức sử dụng Paper.book().read("user") để đọc thông tin người dùng và gán nó cho biến Utils.user_current.
             User user = Paper.book().read("user");
             Utils.user_current = user;
         }
@@ -143,12 +146,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getSpMoi() {
+        //lấy danh sách sản phẩm mới từ máy chủ thông qua API và hiển thị chúng trên RecyclerView trong giao diện người dùng
         compositeDisposable.add(apiBanHang.getSpMoi()
+                //compositeDisposable được khởi tạo để quản lý các Disposable được tạo ra từ các Observable.
+                // apiBanHang là một thể hiện của interface được tạo ra để tương tác với API.
+                //phương thức getSpMoi() sử dụng phương thức subscribe() để đăng ký cho việc nhận dữ liệu từ Observable.
+                // subscribeOn() được sử dụng để đặt luồng xử lý cho việc gọi API là luồng I/O và observeOn() được sử dụng
+                // để đặt luồng xử lý cho việc hiển thị dữ liệu lên RecyclerView là luồng chính.
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sanPhamMoiModel -> {
-                            if (sanPhamMoiModel.isSuccess()) {
+                            //Dữ liệu trả về từ API là một đối tượng sanPhamMoiModel, chứa một danh sách các đối tượng SanPhamMoi.
+                            if (sanPhamMoiModel.isSuccess()) {//Nếu API trả về thành công
+                                //danh sách sản phẩm mới (mangSpMoi) được cập nhật với dữ liệu trả về từ API
                                 mangSpMoi = sanPhamMoiModel.getResult();
                                 spAdapter = new SanPhamMoiAdapter(getApplicationContext(), mangSpMoi);
                                 recyclerViewmanhinhchinh.setAdapter(spAdapter);
@@ -237,12 +248,17 @@ public class MainActivity extends AppCompatActivity {
         // khoi tao List
         mangloaisp = new ArrayList<>();
         mangSpMoi = new ArrayList<>();
+        //kiểm tra xem có thông tin giỏ hàng được lưu trữ trong Paper hay không.
         if (Paper.book().read("giohang") != null){
+            //Nếu có, phương thức sử dụng Paper.book().read("giohang") để đọc thông tin
+            // giỏ hàng và gán nó cho biến Utils.manggiohang.
             Utils.manggiohang = Paper.book().read("giohang");
         }
-        if (Utils.manggiohang == null) {
+        if (Utils.manggiohang == null) {//nếu = nul thì khởi tạo
+            //Nếu biến Utils.manggiohang có giá trị null, phương thức khởi tạo một ArrayList mới.
             Utils.manggiohang = new ArrayList<>();
         }else {
+            //Nếu không, phương thức sử dụng một vòng lặp để tính tổng số lượng sản phẩm trong giỏ hàng
             int totalItem = 0;
             for (int i = 0; i< Utils.manggiohang.size(); i++) {
                 totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
@@ -272,6 +288,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        //Phương thức onResume() được sử dụng để cập nhật số lượng sản phẩm trong giỏ hàng trên biểu tượng "badge"
+        // sau khi người dùng thêm sản phẩm vào giỏ hàng. Phương thức này được gọi mỗi khi ứng dụng quay lại trạng thái hoạt động.
         super.onResume();
         int totalItem = 0;
         for (int i = 0; i< Utils.manggiohang.size(); i++) {
@@ -280,7 +298,8 @@ public class MainActivity extends AppCompatActivity {
         badge.setText(String.valueOf(totalItem));
     }
 
-    //ktra thiết bị có kết nối internet hay k
+    //ktra thiết bị có kết nối internet hay k trước khi thực hiện các hoạt động liên quan đến
+    // mạng như truy cập API hoặc tải xuống dữ liệu.
     private boolean isConnected (Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -295,6 +314,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        //Phương thức này được gọi khi hoạt động (Activity) đang bị hủy và được sử dụng để giải
+        // phóng bộ nhớ và các tài nguyên khác được sử dụng trong hoạt động.
         compositeDisposable.clear();
         super.onDestroy();
     }

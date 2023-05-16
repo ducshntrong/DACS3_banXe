@@ -64,7 +64,7 @@ public class loaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     if (!isLongClick) {
                         // click chuyen man` san pham
                         Intent intent = new Intent(context, ChiTietActivity.class);
-                        intent.putExtra("chitiet", sanPham);
+                        intent.putExtra("chitiet", sanPham);//gửi data qua chitet
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }

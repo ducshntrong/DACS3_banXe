@@ -55,8 +55,11 @@ public class loaiSanPhamActivity extends AppCompatActivity {
         addEventLoad();
     }
 
+    // addEventLoad() được sử dụng để thêm một sự kiện cuộn cho RecyclerView,
+    // để tự động tải thêm dữ liệu khi người dùng cuộn đến cuối danh sách.
     private void addEventLoad() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            //phương thức recyclerView.addOnScrollListener() được sử dụng để đăng ký một trình nghe sự kiện cho RecyclerView.
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -64,19 +67,30 @@ public class loaiSanPhamActivity extends AppCompatActivity {
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                //Khi người dùng cuộn danh sách, phương thức onScrolled() được gọi.
                 super.onScrolled(recyclerView, dx, dy);
                 if (isLoanding == false) {
+                    //kiểm tra xem biến isLoanding có bằng false hay không. Nếu isLoanding là false,
+                    // điều này có nghĩa là không có quá trình tải dữ liệu nào đang diễn ra.
                     if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size()-1) {
+                        //xác định vị trí của phần tử cuối cùng hiển thị trên màn hình.
+                        // Nếu vị trí này bằng với vị trí của phần tử cuối cùng trong danh sách sanPhamMoiList,
+                        // điều này có nghĩa là người dùng đã cuộn đến cuối danh sách.
                         isLoanding = true;
                         loadMore();
+                        //Khi cuộn đến cuối danh sách, phương thức gọi phương thức loadMore() để tải thêm dữ liệu
+                        // và đặt biến isLoanding thành true để đánh dấu rằng quá trình tải dữ liệu đang diễn ra.
                     }
                 }
             }
         });
     }
 
-    private void loadMore() {
+    private void loadMore() {//Phương thức loadMore() được sử dụng để tải thêm dữ liệu vào danh sách sản phẩm mới.
         handler.post(new Runnable() {
+            //handler.post() được sử dụng để thêm một phần tử null vào danh sách sản phẩm mới
+            // và thông báo cho Adapter biết rằng có một phần tử đã được thêm vào. Điều này giúp cho
+            // RecyclerView hiển thị một phần tử trống để người dùng biết rằng có quá trình tải dữ liệu đang diễn ra.
             @Override
             public void run() {
                 //add null
@@ -84,16 +98,16 @@ public class loaiSanPhamActivity extends AppCompatActivity {
                 adapterDt.notifyItemInserted(sanPhamMoiList.size()-1);
             }
         });
-        handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {//tạm dừng việc thêm dữ liệu và thực hiện các hoạt động sau một khoảng thời gian nhất định.
             @Override
             public void run() {
                 // remove null
-                sanPhamMoiList.remove(sanPhamMoiList.size()-1);
+                sanPhamMoiList.remove(sanPhamMoiList.size()-1);//xóa phần tử null đã được thêm vào trước đó
                 adapterDt.notifyItemRemoved(sanPhamMoiList.size());
-                page = page+1;
-                getData(page);
-                adapterDt.notifyDataSetChanged();
-                isLoanding = false;
+                page = page+1;//tăng số trang của dữ liệu cần tải lên
+                getData(page);//tải thêm dữ liệu từ trang mới.
+                adapterDt.notifyDataSetChanged();//thông báo cho Adapter biết rằng dữ liệu đã được thay đổi
+                isLoanding = false;//đánh dấu rằng quá trình tải dữ liệu đã kết thúc.
             }
         },2000);
     }
@@ -104,16 +118,18 @@ public class loaiSanPhamActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sanPhamMoiModel -> {
-                            if (sanPhamMoiModel.isSuccess()) {
-                                if (adapterDt == null) { //khi nào adapterDt = null thì mới new
+                            if (sanPhamMoiModel.isSuccess()) {//Khi dữ liệu được tải thành công
+                                if (adapterDt == null) { //kiểm tra xem Adapter đã được khởi tạo hay chưa.
+                                    //Nếu Adapter chưa được khởi tạo
                                     sanPhamMoiList = sanPhamMoiModel.getResult();
+                                    //khởi tạo Adapter và gán nó cho RecyclerView.
                                     adapterDt = new loaiAdapter(getApplicationContext(), sanPhamMoiList);
                                     recyclerView.setAdapter(adapterDt);
-                                }else {
+                                }else {//Nếu Adapter đã được khởi tạo trước đó
                                     int vitri = sanPhamMoiList.size()-1;
                                     int soluongadd = sanPhamMoiModel.getResult().size();
                                     for (int i = 0; i < soluongadd; i++) {
-                                        //sau khi có dữ liệu thì ta duyệt qua dữ liệu mới lấy về
+                                        //sau khi có dữ liệu thì ta duyệt qua dữ liệu vừa tải về
                                         //add vào sanPhamMoiList
                                         sanPhamMoiList.add(sanPhamMoiModel.getResult().get(i));
                                     }
@@ -123,7 +139,7 @@ public class loaiSanPhamActivity extends AppCompatActivity {
 
                             }else {
                                 Toast.makeText(getApplicationContext(), "Het du lieu", Toast.LENGTH_LONG).show();
-                                isLoanding = true;
+                                isLoanding = true;//đánh dấu rằng quá trình tải dữ liệu đã kết thúc.
                             }
                         },
                         throwable -> {

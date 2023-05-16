@@ -26,6 +26,7 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
         this.itemList = itemList;
     }
 
+    //sử dụng để khởi tạo ViewHolder cho các item trong RecyclerView.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,9 +34,10 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
         return new MyViewHolder(view);
     }
 
+    //sử dụng để gán dữ liệu cho ViewHolder tại vị trí position.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Item item = itemList.get(position);
+        Item item = itemList.get(position);//sử dụng để lấy đối tượng Item tại vị trí position.
         holder.txtten.setText(item.getTensp()+ "");
         holder.soluong.setText("Số lượng: " + item.getSoluong()+ "");
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");

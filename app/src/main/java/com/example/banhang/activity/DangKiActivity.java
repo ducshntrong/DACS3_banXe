@@ -59,8 +59,9 @@ public class DangKiActivity extends AppCompatActivity {
         }else if (TextUtils.isEmpty(str_mobile)) {
             Toast.makeText(getApplicationContext(), "Bạn chưa nhập Phone", Toast.LENGTH_LONG).show();
         }else {
-            if (str_pass.equals(str_repass)) {
+            if (str_pass.equals(str_repass)) {//so sánh 2 pass nhập vào có gioongs nhau k
                 //post data
+                //apiBanHang.dangKi() để gửi thông tin đăng ký đến máy chủ thông qua Retrofit.
                 compositeDisposable.add(apiBanHang.dangKi(str_email, str_pass, str_name, str_mobile )
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -68,6 +69,7 @@ public class DangKiActivity extends AppCompatActivity {
                                 userModel -> {
                                     if (userModel.isSuccess()) {
                                         Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_LONG).show();
+                                        //lưu trữ thông tin tài khoản đăng ký vào đối tượng Utils.user_current.
                                         Utils.user_current.setEmail(str_email);
                                         Utils.user_current.setPass(str_pass);
                                         Intent intent = new Intent(getApplicationContext(), DangNhapActivity.class);

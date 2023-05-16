@@ -10,6 +10,15 @@ public class DonHang {
     String tongtien;
     int trangthai;
     List<Item> item;
+    String ngaymua;
+
+    public String getNgaymua() {
+        return ngaymua;
+    }
+
+    public void setNgaymua(String ngaymua) {
+        this.ngaymua = ngaymua;
+    }
 
     public int getId() {
         return id;

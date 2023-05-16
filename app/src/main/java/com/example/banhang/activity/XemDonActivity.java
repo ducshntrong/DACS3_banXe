@@ -5,8 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.banhang.R;
@@ -37,15 +39,18 @@ public class XemDonActivity extends AppCompatActivity {
 
     }
 
+    //Phương thức getOder() được sử dụng để lấy danh sách đơn hàng của người dùng từ API
+    // và hiển thị chúng trên RecyclerView redonhang.
     private void getOder() {
-        compositeDisposable.add(apiBanHang.xemDonHang(Utils.user_current.getId())
+        compositeDisposable.add(apiBanHang.xemDonHang(Utils.user_current.getId())//gọi API và lấy danh sách đơn hàng của người dùng.
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         donHangModel -> {
+                            //Nếu API trả về kết quả thành công, phương thức sẽ tạo một đối tượng DonHangAdapter
+                            // và đặt nó làm Adapter cho RecyclerView redonhang để hiển thị danh sách đơn hàng.
                             DonHangAdapter adapter = new DonHangAdapter(getApplicationContext(), donHangModel.getResult());
                             redonhang.setAdapter(adapter);
-
                         },
                         throwable -> {
                             Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_LONG).show();
@@ -70,6 +75,7 @@ public class XemDonActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toobar);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         redonhang.setLayoutManager(layoutManager);
+
     }
 
     @Override

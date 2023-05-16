@@ -2,6 +2,7 @@ package com.example.banhang.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.banhang.Interface.IImageClickListenner;
 import com.example.banhang.R;
+import com.example.banhang.activity.ChiTietActivity;
 import com.example.banhang.activity.GioHangActivity;
 import com.example.banhang.model.EventBus.TinhTongEvent;
 import com.example.banhang.model.GioHang;
@@ -59,17 +61,23 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     //nếu tích vào thì set = true
+                    //đặt thuộc tính đã chọn của đối tượng gioHang tương ứng trong danh sách Utils.manggiohang thành đúng.
                     Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(true);
                     if (!Utils.mangmuahang.contains(gioHang)){
+                        //Nếu danh sách Utils.mangmuahang chưa chứa đối tượng gioHang thì nó sẽ được thêm vào danh sách.
                         Utils.mangmuahang.add(gioHang);
                     }
+                    //Danh sách Utils.manggiohang được cập nhật sau đó được lưu trữ trong đối tượng Paper
+                    Paper.book().write("giohang", Utils.manggiohang);
                     EventBus.getDefault().postSticky(new TinhTongEvent());
                 }else {
                     //nếu bỏ tích
                     Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(false);
                     for (int i = 0; i < Utils.mangmuahang.size(); i++) {
+                        //lặp qua danh sách Utils.mangmuahang và loại bỏ đối tượng gioHang nếu nó được tìm thấy.
                         if (Utils.mangmuahang.get(i).getIdsp() == gioHang.getIdsp()) {
                             Utils.mangmuahang.remove(i);
+                            Paper.book().write("giohang", Utils.manggiohang);
                             EventBus.getDefault().postSticky(new TinhTongEvent());
                         }
                     }
@@ -84,12 +92,14 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
             public void onImageClick(View view, int pos, int giatri) {
                 if (giatri == 1) {
                     if (gioHangList.get(pos).getSoluong() > 1) {
+                        //ktr số lượng sp trong giỏ có lớn hơn 1 k, nếu lơn hơn thì trừ ngược lại thì k
                         int soluongmoi = gioHangList.get(pos).getSoluong()-1;
-                        gioHangList.get(pos).setSoluong(soluongmoi);
+                        gioHangList.get(pos).setSoluong(soluongmoi);//sau khi trừ xong thì set lại giá trị
 
                         holder.item_giohang_soluong.setText(gioHangList.get(pos).getSoluong()+ " ");
                         long gia = gioHangList.get(pos).getSoluong()* gioHangList.get(pos).getGiasp();
                         holder.item_giohang_giasp2.setText(decimalFormat.format(gia)+"đ");
+                        Paper.book().write("giohang", Utils.manggiohang);
                         EventBus.getDefault().postSticky(new TinhTongEvent());
                     }
                 }else if (giatri == 2) {
@@ -100,6 +110,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                     holder.item_giohang_soluong.setText(gioHangList.get(pos).getSoluong()+ " ");
                     long gia = gioHangList.get(pos).getSoluong()* gioHangList.get(pos).getGiasp();
                     holder.item_giohang_giasp2.setText(decimalFormat.format(gia)+"đ");
+                    Paper.book().write("giohang", Utils.manggiohang);
                     EventBus.getDefault().postSticky(new TinhTongEvent());
                 }else if (giatri == 3) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
@@ -123,8 +134,6 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                     });
                     builder.show();
                 }
-
-
             }
         });
 

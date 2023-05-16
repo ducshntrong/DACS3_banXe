@@ -16,7 +16,7 @@ public class GioHang {
         isChecked = checked;
     }
 
-    public GioHang() {
+    public GioHang() {//hàm khởi tạo không có đối số
 
     }
 

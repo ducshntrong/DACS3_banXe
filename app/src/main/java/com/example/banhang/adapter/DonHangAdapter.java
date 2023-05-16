@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHolder> {
+    //sử dụng để lưu trữ và sử dụng lại các chế độ xem không còn hiển thị trên màn hình nhằm cải thiện hiệu suất.
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     Context context;
     List<DonHang> listdonhang;
@@ -39,6 +40,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         DonHang donHang = listdonhang.get(position);
         holder.tongtien.setText("Tổng tiền: "+decimalFormat.format(Double.parseDouble(donHang.getTongtien())) + "đ");
+        holder.ngaymua.setText("Ngày đặt: "+ donHang.getNgaymua());
         if (donHang.getTrangthai() == 0){
             holder.txtdonhang.setText("Đơn hàng: Đang giao");
         }else if (donHang.getTrangthai() == 1){
@@ -46,7 +48,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
             holder.txtdonhang.setTextColor(Color.parseColor("#036D03"));
             holder.tongtien.setTextColor(Color.parseColor("#036D03"));
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
+        LinearLayoutManager layoutManager = new LinearLayoutManager(//hiển thị danh sách sản phẩm trong đơn hàng
                 holder.reChiTiet.getContext(),
                 LinearLayoutManager.VERTICAL,
                 false
@@ -65,7 +67,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView txtdonhang, tongtien;
+        TextView txtdonhang, tongtien, ngaymua;
         RecyclerView reChiTiet;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -73,6 +75,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
             txtdonhang = itemView.findViewById(R.id.iddonhang);
             reChiTiet = itemView.findViewById(R.id.recycleview_chitiet);
             tongtien = itemView.findViewById(R.id.tongtien);
+            ngaymua = itemView.findViewById(R.id.ngaymua);
         }
     }
 }
