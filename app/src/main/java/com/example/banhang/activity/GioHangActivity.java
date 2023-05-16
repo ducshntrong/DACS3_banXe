@@ -78,13 +78,15 @@ public class GioHangActivity extends AppCompatActivity {
         btnmuahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Utils.manggiohang.size() > 0) {//kiểm tra xem giỏ hàng của người dùng có chứa sản phẩm nào không.
+                if (Utils.mangmuahang.size() > 0) {//kiểm tra xem mangmua hàng của người dùng có chứa sản phẩm nào không.
                     Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
                     //truyền giá trị của biến tongtiensp qua Activity ThanhToanActivity bằng cách sử dụng putExtra()
                     intent.putExtra("tongtien", tongtiensp);//truyền dữ liệu tongtien qua
                     startActivity(intent);
-                }else {
+                }else if(Utils.manggiohang.size() == 0){
                     Toast.makeText(getApplicationContext(), "Không có sản phẩm nào để mua hàng", Toast.LENGTH_LONG).show();
+                }else if(Utils.mangmuahang.size() == 0){
+                    Toast.makeText(getApplicationContext(), "Bạn chưa chọn sản phẩm nào để mua hàng", Toast.LENGTH_LONG).show();
                 }
             }
         });
